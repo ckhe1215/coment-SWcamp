@@ -57,7 +57,6 @@ class ProgramViewServiceTest {
         );
 
     }
-
     @Test
     @DisplayName("프로그램이 여러개 일때")
     void pageByTest() {

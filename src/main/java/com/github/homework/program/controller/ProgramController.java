@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,6 +38,11 @@ public class ProgramController {
     public ResponseEntity<ProgramViewDetailDto> getBy(@PathVariable Long id) {
         Optional<ProgramViewDetailDto> programViewDto = this.programViewService.getBy(id);
         return programViewDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProgramViewDetailDto>> getBy(@RequestParam(value = "name") String name) {
+        return ResponseEntity.ok(this.programViewService.getBy(name));
     }
 
     @PostMapping

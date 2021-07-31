@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,10 @@ public class ProgramViewService {
                         program.getTheme().getName()
                 )
         );
+    }
+
+    public List<ProgramViewDetailDto> getBy(String name) {
+        return programRepository.findAllByName(name);
     }
 
     public Page<ProgramViewDto> pageBy(Pageable pageable) {
