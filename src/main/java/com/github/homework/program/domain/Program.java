@@ -27,6 +27,8 @@ public class Program {
     private String region;
     @Column(name = "introduction_detail", nullable = false)
     private String introductionDetail;
+    @Column(name = "count")
+    private Long count;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "theme_id")
@@ -38,6 +40,7 @@ public class Program {
         this.introduction = introduction;
         this.introductionDetail = introductionDetail;
         this.region = region;
+        this.count = 0L;
         this.theme = theme;
     }
 
@@ -48,6 +51,10 @@ public class Program {
         this.introductionDetail = introductionDetail;
         this.region = region;
         this.theme = theme;
+    }
+
+    public void increaseCount() {
+        this.count++;
     }
 
 }

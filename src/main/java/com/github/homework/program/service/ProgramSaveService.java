@@ -41,5 +41,10 @@ public class ProgramSaveService {
         );
     }
 
+    public void increaseCount(Long id) throws ProgramNotFoundException {
+        Program program = this.programRepository.findById(id).orElseThrow(ProgramNotFoundException::new);
+        program.increaseCount();
+    }
+
 
 }

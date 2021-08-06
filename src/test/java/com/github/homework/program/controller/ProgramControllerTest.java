@@ -169,6 +169,25 @@ public class ProgramControllerTest extends BaseControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    @DisplayName("인기 프로그램 10개 조회")
+    public void getBestPrograms() throws Exception {
+        Program program1 = givenProgram(givenTheme("식도락여행"));
+        Program program2 = givenProgram(givenTheme("식도락여행"));
+        Program program3 = givenProgram(givenTheme("식도락여행"));
+        this.mockMvc.perform(get("/api/programs/{id}", program1.getId()));
+        this.mockMvc.perform(get("/api/programs/{id}", program1.getId()));
+        this.mockMvc.perform(get("/api/programs/{id}", program1.getId())); // 1 -> count : 3
+        this.mockMvc.perform(get("/api/programs/{id}", program2.getId()));
+        this.mockMvc.perform(get("/api/programs/{id}", program2.getId())); // 2 -> count : 2
+        this.mockMvc.perform(get("/api/programs/{id}", program3.getId())); // 3 -> count : 1
+        this.mockMvc.perform(get("/api/programs/bestPrograms"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[2].id").value(3));
+    }
+
     private Program givenProgram(Theme theme) {
         Program program = Program.builder().name("여수 10미 먹거리")
                 .region("전라남도 여수시")

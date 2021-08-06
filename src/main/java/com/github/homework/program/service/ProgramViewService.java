@@ -27,6 +27,7 @@ public class ProgramViewService {
                         program.getIntroduction(),
                         program.getIntroductionDetail(),
                         program.getRegion(),
+                        program.getCount(),
                         program.getTheme().getName()
                 )
         );
@@ -38,6 +39,10 @@ public class ProgramViewService {
 
     public Page<ProgramViewDto> pageBy(Pageable pageable) {
         return programRepository.findBy(pageable);
+    }
+
+    public List<ProgramViewDto> getBestPrograms() {
+        return programRepository.findTop10ByOrderByCountDesc();
     }
 
 }
